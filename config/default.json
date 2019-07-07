@@ -1,0 +1,3 @@
+{
+  "mongoDbConnectionString": "mongodb+srv://danielagg:passwordfordb@contactapp-5ke6h.mongodb.net/test?retryWrites=true&w=majority"
+}
