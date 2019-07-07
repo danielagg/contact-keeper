@@ -1,10 +1,23 @@
 const express = require("express");
+const { check, validationResult } = require("express-validator");
+const authMiddleware = require("../middleware/authmiddleware");
+
+const User = require("../models/User");
+const Contact = require("../models/Contact");
 
 const router = express.Router();
 
 // api/contacts, from server.js
-router.get("/", (req, res) => {
-  res.send("Get all user contacts");
+router.get("/", authMiddleware, async (req, res) => {
+  try {
+    const contacts = await Contact.find({ userId: req.user.id }).sort({
+      createdOn: -1 // sort by desc
+    });
+    res.json(contacts);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ msg: "Could not fetch user's contacts" });
+  }
 });
 
 // api/contacts, from server.js
