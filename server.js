@@ -5,6 +5,8 @@ const app = express();
 
 connectDb();
 
+app.use(express.json({ extended: false }));
+
 const PORT = process.env.PORT | 5000;
 
 // Define routes
