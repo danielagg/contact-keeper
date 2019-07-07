@@ -21,9 +21,39 @@ router.get("/", authMiddleware, async (req, res) => {
 });
 
 // api/contacts, from server.js
-router.post("/", (req, res) => {
-  res.send("Add new contact");
-});
+router.post(
+  "/",
+  [
+    authMiddleware,
+    check("name", "Name is required")
+      .not()
+      .isEmpty()
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { name, email, phone, type } = req.body;
+    try {
+      const contactToAdd = new Contact({
+        name,
+        email,
+        phone,
+        type,
+        userId: req.user.id
+      });
+
+      const savedContact = await contactToAdd.save();
+      res.json(savedContact);
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).json({ msg: "Could not insert new contact" });
+    }
+  }
+);
 
 // api/contacts, from server.js
 router.put("/:id", (req, res) => {
