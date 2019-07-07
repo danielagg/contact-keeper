@@ -1,7 +1,9 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
+const config = require("config");
+const jwt = require("jsonwebtoken");
 const router = express.Router();
-// const { check, validationResult } = require("express-validator/check");
+
 const { check, validationResult } = require("express-validator");
 
 const User = require("../models/User");
@@ -44,7 +46,21 @@ router.post(
 
       await user.save();
 
-      res.send("todo: User saved");
+      const resPayload = {
+        user: {
+          id: user.id
+        }
+      };
+
+      jwt.sign(
+        resPayload,
+        config.get("jwtSecret"),
+        { expiresIn: 3600 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        }
+      );
     } catch (ex) {
       console.error(ex.message);
       res.status(500).json({ msg: "Could not create user" });
