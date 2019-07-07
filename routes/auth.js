@@ -4,13 +4,20 @@ const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
+const authMiddleware = require("../middleware/authmiddleware");
 const User = require("../models/User");
 
 const router = express.Router();
 
 // api/auth, from server.js
-router.get("/", (req, res) => {
-  res.send("Fetching logged in user");
+router.get("/", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password"); // do not return the encrypted password
+    res.json(user);
+  } catch (error) {
+    console.error(ex.message);
+    return res.status(500).json({ msg: "Cannot login" });
+  }
 });
 
 // api/auth, from server.js
