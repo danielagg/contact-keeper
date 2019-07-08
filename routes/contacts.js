@@ -84,12 +84,32 @@ router.put("/:id", authMiddleware, async (req, res) => {
     );
 
     res.json(contact);
-  } catch (error) {}
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ msg: "Could not update contact" });
+  }
 });
 
 // api/contacts, from server.js
-router.delete("/:id", (req, res) => {
-  res.send("Delete contact");
+router.delete("/:id", authMiddleware, async (req, res) => {
+  try {
+    let contact = await Contact.findById(req.params.id);
+
+    if (!contact)
+      return res.status(404).json({ msg: "Contact does not exist" });
+
+    // make sure the contact is the user's contact
+    if (contact.userId.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "Unauthorized to delete contact" });
+    }
+
+    await Contact.findByIdAndRemove(req.params.id);
+
+    res.json({ msg: "Contact removed" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ msg: "Could not update contact" });
+  }
 });
 
 module.exports = router;
