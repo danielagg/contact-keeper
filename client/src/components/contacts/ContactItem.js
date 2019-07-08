@@ -4,7 +4,12 @@ import PropTypes from "prop-types";
 
 const ContactItem = ({ contact }) => {
   const context = useContext(ContactContext);
-  const { id, name, email, phone, type } = contact;
+  const { deleteContact } = context;
+  const { _id, name, email, phone, type } = contact;
+
+  const onDelete = () => {
+    deleteContact(_id);
+  };
 
   return (
     <div>
@@ -23,7 +28,7 @@ const ContactItem = ({ contact }) => {
         <button>Edit</button>
       </p>
       <p>
-        <button>Delete</button>
+        <button onClick={onDelete}>Delete</button>
       </p>
     </div>
   );

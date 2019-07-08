@@ -60,7 +60,9 @@ const ContactState = props => {
   const updateContact = contactToUpdate => {};
 
   // Delete contact
-  const deleteContact = contactIdToDelete => {};
+  const deleteContact = contactIdToDelete => {
+    dispatch({ type: DELETE_CONTACT, payload: contactIdToDelete });
+  };
 
   // Set current contact
 
