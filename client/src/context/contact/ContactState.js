@@ -58,7 +58,9 @@ const ContactState = props => {
   };
 
   // Update contact
-  const updateContact = contactToUpdate => {};
+  const updateContact = contactToUpdate => {
+    dispatch({ type: UPDATE_CONTACT, payload: contactToUpdate });
+  };
 
   // Delete contact
   const deleteContact = contactIdToDelete => {

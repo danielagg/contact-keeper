@@ -2,12 +2,12 @@ import React from "react";
 
 // Components
 import ContactList from "../contacts/ContactList";
-import AddContactItem from "../contacts/AddContactItem";
+import EditContactItem from "../contacts/EditContactItem";
 
 const Home = () => {
   return (
     <div>
-      <AddContactItem />
+      <EditContactItem />
       <hr />
       <ContactList />
       <hr />
