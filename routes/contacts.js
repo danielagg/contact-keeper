@@ -108,7 +108,7 @@ router.delete("/:id", authMiddleware, async (req, res) => {
     res.json({ msg: "Contact removed" });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ msg: "Could not update contact" });
+    res.status(500).json({ msg: "Could not delete contact" });
   }
 });
 
