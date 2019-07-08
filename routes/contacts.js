@@ -56,8 +56,35 @@ router.post(
 );
 
 // api/contacts, from server.js
-router.put("/:id", (req, res) => {
-  res.send("Update contact");
+router.put("/:id", authMiddleware, async (req, res) => {
+  const { name, email, phone, type } = req.body;
+
+  // Build contact object from request
+  const contactToUpdate = {};
+  if (name) contactToUpdate.name = name;
+  if (email) contactToUpdate.email = email;
+  if (phone) contactToUpdate.phone = phone;
+  if (type) contactToUpdate.type = type;
+
+  try {
+    let contact = await Contact.findById(req.params.id);
+
+    if (!contact)
+      return res.status(404).json({ msg: "Contact does not exist" });
+
+    // make sure the contact is the user's contact
+    if (contact.userId.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "Unauthorized to update contact" });
+    }
+
+    contact = await Contact.findByIdAndUpdate(
+      req.params.id,
+      { $set: contactToUpdate },
+      { new: true }
+    );
+
+    res.json(contact);
+  } catch (error) {}
 });
 
 // api/contacts, from server.js
