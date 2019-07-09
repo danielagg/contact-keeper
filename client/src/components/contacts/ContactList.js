@@ -7,13 +7,17 @@ import ContactItem from "./ContactItem";
 const ContactList = () => {
   const context = useContext(ContactContext);
 
-  const { contacts } = context;
+  const { contacts, filteredContacts } = context;
 
   return (
     <>
-      {contacts.map(contact => (
-        <ContactItem key={contact.id} contact={contact} />
-      ))}
+      {filteredContacts !== null
+        ? filteredContacts.map(contact => (
+            <ContactItem key={contact.id} contact={contact} />
+          ))
+        : contacts.map(contact => (
+            <ContactItem key={contact.id} contact={contact} />
+          ))}
     </>
   );
 };
