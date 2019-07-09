@@ -29,6 +29,11 @@ export default (state, action) => {
         isLoading: false,
         error: action.payload
       };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null
+      };
     default:
       return state;
   }
