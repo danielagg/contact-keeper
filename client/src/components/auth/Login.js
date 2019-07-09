@@ -1,0 +1,40 @@
+import React, { useState } from "react";
+
+const Login = () => {
+  const [user, setUser] = useState({
+    email: "",
+    password: ""
+  });
+
+  const { email, password } = user;
+
+  const onChange = e => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = e => {
+    e.preventDefault();
+  };
+
+  return (
+    <div>
+      <h1>Sign In</h1>
+      <form onSubmit={onSubmit}>
+        <label htmlFor="email">Email address</label>
+        <input type="email" name="email" value={email} onChange={onChange} />
+
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={onChange}
+        />
+
+        <input type="submit" value="Login" />
+      </form>
+    </div>
+  );
+};
+
+export default Login;
