@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import AlertContext from "../../context/alert/alertContext";
 
 const Register = () => {
+  const alertContext = useContext(AlertContext);
+
+  const { setAlert } = alertContext;
+
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -16,6 +21,12 @@ const Register = () => {
 
   const onSubmit = e => {
     e.preventDefault();
+
+    if (name === "" || email === "" || password === "") {
+      setAlert("Please enter all mandatory fields", "danger");
+    } else if (password !== passwordConfirmation) {
+      setAlert("Passwords do not match", "danger");
+    }
   };
 
   return (
@@ -23,10 +34,22 @@ const Register = () => {
       <h1>Register Account</h1>
       <form onSubmit={onSubmit}>
         <label htmlFor="name">User name</label>
-        <input type="text" name="name" value={name} onChange={onChange} />
+        <input
+          type="text"
+          name="name"
+          value={name}
+          onChange={onChange}
+          required
+        />
 
         <label htmlFor="email">Email address</label>
-        <input type="email" name="email" value={email} onChange={onChange} />
+        <input
+          type="email"
+          name="email"
+          value={email}
+          onChange={onChange}
+          required
+        />
 
         <label htmlFor="password">Password</label>
         <input
@@ -34,6 +57,8 @@ const Register = () => {
           name="password"
           value={password}
           onChange={onChange}
+          required
+          minLength="6"
         />
 
         <label htmlFor="passwordConfirmation">Password confirmation</label>
@@ -42,6 +67,8 @@ const Register = () => {
           name="passwordConfirmation"
           value={passwordConfirmation}
           onChange={onChange}
+          required
+          minLength="6"
         />
 
         <input type="submit" value="Register" />
