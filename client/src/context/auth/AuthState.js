@@ -12,6 +12,7 @@ import {
   LOGOUT,
   CLEAR_ERRORS
 } from "../types";
+import { setAuthToken } from "../../utils/axiosWrapper";
 
 const AuthState = props => {
   const initialState = {
@@ -25,7 +26,18 @@ const AuthState = props => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   // Load user
-  const loadUser = () => {};
+  const loadUser = async () => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+
+    try {
+      const res = await Axios.get("/api/auth");
+      dispatch({ type: USER_LOADED, payload: res.data });
+    } catch (error) {
+      dispatch({ type: AUTH_ERROR });
+    }
+  };
 
   // Register user
   const registerUser = async formData => {
@@ -41,6 +53,7 @@ const AuthState = props => {
         type: REGISTER_SUCCESS,
         payload: res.data
       });
+      loadUser();
     } catch (error) {
       dispatch({
         type: REGISTER_FAIL,

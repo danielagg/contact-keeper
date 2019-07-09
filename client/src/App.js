@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { setAuthToken } from "./utils/axiosWrapper";
 
 // Contexts
 import AuthState from "./context/auth/AuthState";
@@ -13,6 +14,10 @@ import About from "./components/pages/About";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Alerts from "./components/layout/Alerts";
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const App = () => {
   return (
