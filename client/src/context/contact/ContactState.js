@@ -57,13 +57,33 @@ const ContactState = props => {
   };
 
   // Update contact
-  const updateContact = contactToUpdate => {
-    dispatch({ type: UPDATE_CONTACT, payload: contactToUpdate });
+  const updateContact = async contactToUpdate => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    try {
+      const res = await Axios.put(
+        `/api/contacts/${contactToUpdate._id}`,
+        contactToUpdate,
+        config
+      );
+      dispatch({ type: UPDATE_CONTACT, payload: res.data });
+    } catch (error) {
+      dispatch({ type: CONTACT_ERROR, payload: error.response.msg });
+    }
   };
 
   // Delete contact
-  const deleteContact = contactIdToDelete => {
-    dispatch({ type: DELETE_CONTACT, payload: contactIdToDelete });
+  const deleteContact = async contactIdToDelete => {
+    try {
+      await Axios.delete(`/api/contacts/${contactIdToDelete}`);
+      dispatch({ type: DELETE_CONTACT, payload: contactIdToDelete });
+    } catch (error) {
+      dispatch({ type: CONTACT_ERROR, payload: error.response.msg });
+    }
   };
 
   // Set current contact
