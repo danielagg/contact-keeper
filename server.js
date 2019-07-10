@@ -8,7 +8,7 @@ connectDb();
 
 app.use(express.json({ extended: false }));
 
-const PORT = process.env.PORT | 5000;
+const PORT = process.env.PORT || 5000;
 
 // Define routes
 app.use("/api/auth", require("./routes/auth"));
