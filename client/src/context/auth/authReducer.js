@@ -36,6 +36,16 @@ export default (state, action) => {
         isLoading: false,
         error: action.payload
       };
+    case LOGOUT:
+      localStorage.removeItem("token");
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        user: null,
+        isLoading: false,
+        error: action.payload
+      };
     case REGISTER_SUCCESS:
       localStorage.setItem("token", action.payload.token);
       return {
