@@ -1,4 +1,6 @@
 import {
+  GET_CONTACTS,
+  CLEAR_CONTACTS,
   ADD_CONTACT,
   UPDATE_CONTACT,
   DELETE_CONTACT,
@@ -11,6 +13,19 @@ import {
 
 export default (state, action) => {
   switch (action.type) {
+    case GET_CONTACTS:
+      return {
+        ...state,
+        contacts: action.payload
+      };
+    case CLEAR_CONTACTS:
+      return {
+        ...state,
+        contacts: null,
+        filteredContacts: null,
+        currentContact: null,
+        error: null
+      };
     case ADD_CONTACT:
       return {
         ...state,
