@@ -16,6 +16,9 @@ const Login = props => {
   const { login, isAuthenticated, error, clearErrors } = authContext;
 
   useEffect(() => {
+    // try authenticating the user first
+    authContext.loadUser();
+
     if (isAuthenticated) {
       props.history.push("/");
     }
