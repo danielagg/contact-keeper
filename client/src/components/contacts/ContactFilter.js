@@ -22,14 +22,25 @@ const ContactFilter = () => {
   };
 
   return (
-    <form>
-      <input
-        ref={filterText}
-        type="text"
-        placeholder="Filter contacts..."
-        onChange={onChange}
-      />
-    </form>
+    <div
+      style={{ margin: "5rem 3rem 2rem 3rem", border: "1px solid grey" }}
+      className="nav-wrapper white"
+    >
+      <form>
+        <div className="input-field">
+          <input
+            ref={filterText}
+            id="search"
+            type="search"
+            placeholder="Filter contacts..."
+            onChange={onChange}
+          />
+          <label className="label-icon" htmlFor="search">
+            <i className="material-icons black-text">search</i>
+          </label>
+        </div>
+      </form>
+    </div>
   );
 };
 

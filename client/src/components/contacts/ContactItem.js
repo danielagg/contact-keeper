@@ -17,24 +17,41 @@ const ContactItem = ({ contact }) => {
   };
 
   return (
-    <div>
-      <h3>{name}</h3>
-      <p>{type.charAt(0).toUpperCase() + type.slice(1)}</p>
-      <ul>
-        <li>
-          <i className="fas fa-envelope-open" /> {email}
-        </li>
-        <li>
-          <i className="fas fa-phone" />
-          {phone}
-        </li>
-      </ul>
-      <p>
-        <button onClick={onEdit}>Edit</button>
-      </p>
-      <p>
-        <button onClick={onDelete}>Delete</button>
-      </p>
+    <div className="col s12 m6 l4">
+      <div className="card teal darken-2">
+        <div className="card-content white-text">
+          <span className="card-title">{name}</span>
+          <span
+            className={`new badge ${
+              type === "professional" ? "red lighten-2" : "teal darken-5"
+            }`}
+            data-badge-caption=""
+          >
+            {type.charAt(0).toUpperCase() + type.slice(1)}
+          </span>
+          <ul>
+            <li>
+              <i className="fas fa-envelope-open" /> {email}
+            </li>
+            <li>
+              <i className="fas fa-phone" />
+              {phone}
+            </li>
+          </ul>
+        </div>
+        <div className="card-action">
+          <button className="btn white teal-text" onClick={onEdit}>
+            <i className="material-icons right">edit</i>Edit
+          </button>
+          <button
+            className="btn red lighten-2 whote-text"
+            onClick={onDelete}
+            style={{ marginLeft: "0.5rem" }}
+          >
+            <i className="material-icons right">delete</i>Delete
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

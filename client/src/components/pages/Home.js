@@ -17,11 +17,8 @@ const Home = () => {
   return (
     <div>
       <EditContactItem />
-      <hr />
       <ContactFilter />
-      <hr />
       <ContactList />
-      <hr />
     </div>
   );
 };

@@ -22,11 +22,11 @@ const ContactList = () => {
   }
 
   return (
-    <>
+    <div className="row">
       {contactsToDisplay.map(contact => (
         <ContactItem key={contact._id} contact={contact} />
       ))}
-    </>
+    </div>
   );
 };
 

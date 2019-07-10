@@ -67,7 +67,12 @@ const Login = props => {
           required
         />
 
-        <input type="submit" value="Login" />
+        <input
+          className="btn-large teal darken-2 white-text"
+          style={{ marginTop: "2rem" }}
+          type="submit"
+          value="Login"
+        />
       </form>
     </div>
   );

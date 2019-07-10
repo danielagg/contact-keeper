@@ -18,10 +18,14 @@ const Navbar = ({ title, icon }) => {
 
   const authorizedLinks = (
     <>
-      <li>Hello, {user && user.name} </li>
+      <li style={{ padding: "0 0.5rem" }}>Hello, {user && user.name} </li>
       <li>
         <a onClick={onLogout} href="#!">
-          <i className="fas fa-sign-out-alt">Logout</i>
+          <i
+            className="fas fa-sign-out-alt"
+            style={{ fontSize: "1rem", padding: "0 0.4rem 0 1rem" }}
+          />
+          Logout
         </a>
       </li>
     </>
@@ -40,18 +44,20 @@ const Navbar = ({ title, icon }) => {
 
   return (
     <nav>
-      <h1>
-        <i className={icon} /> {title}
-      </h1>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>{" "}
-        </li>
-        <li>
-          <Link to="/about">About</Link>{" "}
-        </li>
-        {isAuthenticated ? authorizedLinks : unauthorizedLinks}
-      </ul>
+      <div className="nav-wrapper teal darken-2" style={{ padding: "0 3rem" }}>
+        <Link to="/" className="brand-logo">
+          <i className={icon} /> {title}
+        </Link>
+        <ul id="nav-mobile" className="right">
+          <li>
+            <Link to="/">Home</Link>{" "}
+          </li>
+          <li>
+            <Link to="/about">About</Link>{" "}
+          </li>
+          {isAuthenticated ? authorizedLinks : unauthorizedLinks}
+        </ul>
+      </div>
     </nav>
   );
 };

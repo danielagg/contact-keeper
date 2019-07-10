@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { setAuthToken } from "./utils/axiosWrapper";
+
+// Material style
+import "materialize-css/dist/css/materialize.min.css";
+import M from "materialize-css/dist/js/materialize.min.js";
 
 // Contexts
 import AuthState from "./context/auth/AuthState";
@@ -21,6 +25,10 @@ if (localStorage.token) {
 }
 
 const App = () => {
+  useEffect(() => {
+    M.AutoInit();
+  });
+
   return (
     <AuthState>
       <AlertState>

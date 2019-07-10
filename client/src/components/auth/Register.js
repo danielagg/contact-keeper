@@ -89,7 +89,12 @@ const Register = props => {
           minLength="6"
         />
 
-        <input type="submit" value="Register" />
+        <input
+          type="submit"
+          value="Register"
+          className="btn-large teal darken-2 white-text"
+          style={{ marginTop: "2rem" }}
+        />
       </form>
     </div>
   );
